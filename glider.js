@@ -84,11 +84,12 @@ if (window.HTMLCollection && !window.HTMLCollection.prototype.forEach) {
     _.track.style.width = width + "px";
     _.trackWidth = width;
     _.bindArrows();
+    _.showArrows();
   };
 
   Glider.prototype.bindArrows = function() {
     const _ = this;
-    ["prev", "next"].forEach(direction => {
+    ["prev", "next"].forEach(function(direction) {
       let arrow = _.opt[direction + "Arrow"];
       if (arrow) {
         if (typeof arrow === "string") {
@@ -101,6 +102,66 @@ if (window.HTMLCollection && !window.HTMLCollection.prototype.forEach) {
           Glider.prototype.scrollItem.bind(_, direction)
         );
       }
+    });
+  };
+
+  Glider.prototype.scrollItem = function(direction, e) {
+    if (e) {
+      e.preventDefault();
+    }
+
+    const _ = this;
+    let num = 1,
+      scrollLeft = _.el.scrollLeft;
+    if (_.el.scrollLeft >= _.itemWidth) {
+      num = Math.ceil(scrollLeft / _.itemWidth);
+    }
+    if (_.el.scrollLeft === _.itemWidth * num) {
+      num++;
+    }
+    scrollLeft = _.itemWidth * num;
+    if (direction === "prev") {
+      scrollLeft -= _.itemWidth * 2;
+    }
+    _.scrollTo(250, scrollLeft);
+    _.showArrows();
+    return false;
+  };
+
+  Glider.prototype.scrollTo = function(scrollDuration, scrollTarget) {
+    const _ = this;
+    var start = new Date().getTime(),
+      animate = function() {
+        var now = new Date().getTime() - start;
+        _.el.scrollLeft =
+          _.el.scrollLeft +
+          (scrollTarget - _.el.scrollLeft) *
+            _.easing(0, now, 0, 1, scrollDuration);
+        // console.log([now, scrollDuration]);
+        if (now < scrollDuration) {
+          window.requestAnimationFrame(animate);
+        }
+      };
+    window.requestAnimationFrame(animate);
+  };
+
+  Glider.prototype.showArrows = function() {
+    const _ = this;
+    _.prevArrow.classList.toggle("glider-hide", _.el.scrollLeft <= 0);
+    _.nextArrow.classList.toggle(
+      "glider-hide",
+      _.el.scrollLeft + _.el.offsetWidth >= _.trackWidth
+    );
+
+    if (_.el.offsetWidth >= _.trackWidth) {
+      [_.prevArrow, _.nextArrow].forEach(function(ele) {
+        ele.classList.add("glider-hide");
+      });
+    }
+
+    _.activeSlide = Math.floor(_.el.scrollLeft / _.itemWidth);
+    _.dots.forEach(function(dot, index) {
+      dot.classList.toggle("glider-active", _.activeSlide === index);
     });
   };
 })();
