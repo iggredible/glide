@@ -1,0 +1,81 @@
+.glider-contain {
+  border: 1px solid red;
+  width: 50%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.glider {
+  width: 320px;
+  /* display box width */
+  height: 300px;
+  border: 1px solid green;
+  margin: 0 auto;
+  position: relative;
+  overflow-y: hidden;
+  /* why is this overflow-y, not overflow-x? The glider-item(s) are arranged horizontally */
+  /* https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_overflow-y
+   * because overflow-y hidden hides any y overflow. The queueing glider-item imgs are horizontal. It has effect of overflow-x: scroll */
+}
+
+.glider-track {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+/*
+ * prev-next styling
+ * */
+.glider-prev,
+.glider-next {
+  position: absolute;
+  width: 10px;
+  z-index: 99999;
+  font-size: 24px;
+  text-decoration: none;
+  left: -15px;
+  color: blue;
+  top: 40%;
+}
+
+.glider-next {
+  right: -15px;
+  left: auto;
+  content: ">";
+  visibility: visible;
+}
+/* glider-prev and glider-next ends */
+
+.glider-item {
+  /* these are optionals? */
+  /* should still scroll normally without these  */
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background: #f5f5f5;
+}
+
+.glider-hide {
+  display: none;
+}
+
+.glider-dots {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.glider-dots > li {
+  display: block;
+  color: #ccc;
+  border-radiius: 99px;
+  background: #ccc;
+  width: 7px;
+  height: 7px;
+  margin: 7px;
+}
+
+.glider-dots > .glider-active {
+  background: darkred;
+}
