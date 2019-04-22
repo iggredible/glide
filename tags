@@ -4,3 +4,15 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+Glider	glider.js	/^    function Glider(el, settings) {$/;"	F
+Glider	glider.js	/^  window.Glider = (() => {$/;"	M
+bindArrows	glider.js	/^  Glider.prototype.bindArrows = function() {$/;"	M
+dots	glider.js	/^          dots: true,$/;"	P
+easing	glider.js	/^      _.easing = function(x, t, b, c, d) {$/;"	M
+extend	glider.js	/^  Glider.prototype.extend = function(source, properties) {$/;"	M
+init	glider.js	/^  Glider.prototype.init = function() {$/;"	M
+instanceUid	glider.js	/^    let instanceUid = 0;$/;"	V
+nextArrow	glider.js	/^          nextArrow: true,$/;"	P
+prevArrow	glider.js	/^          prevArrow: true,$/;"	P
+slidesToShow	glider.js	/^          slidesToShow: 1$/;"	P
+width	glider.js	/^    let width = 0,$/;"	V
