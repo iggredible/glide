@@ -85,6 +85,8 @@ if (window.HTMLCollection && !window.HTMLCollection.prototype.forEach) {
     _.trackWidth = width;
     _.bindArrows();
     _.showArrows();
+    _.el.addEventListener("scroll", Glider.prototype.showArrows.bind(_)); // what is this for?
+    // apparently it makes next the first time to show prev (correct behavior)
   };
 
   Glider.prototype.bindArrows = function() {
@@ -147,6 +149,7 @@ if (window.HTMLCollection && !window.HTMLCollection.prototype.forEach) {
 
   Glider.prototype.showArrows = function() {
     const _ = this;
+    console.log("scrollLeft: ", _.el.scrollLeft);
     _.prevArrow.classList.toggle("glider-hide", _.el.scrollLeft <= 0);
     _.nextArrow.classList.toggle(
       "glider-hide",
